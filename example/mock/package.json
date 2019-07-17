@@ -1,0 +1,14 @@
+{
+  "name": "mock",
+  "private": true,
+  "main": "index.js",
+  "author": "James Livolsi <james.livolsi08@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "express": "^4.17.1"
+  }
+}

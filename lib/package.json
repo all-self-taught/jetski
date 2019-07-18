@@ -1,6 +1,6 @@
 {
   "name": "jetski",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "All in one state/api/route management",
   "module": "build/index.js",
@@ -29,7 +29,14 @@
     "type": "git",
     "url": "https://github.com/all-self-taught/jetski.git"
   },
-  "keywords": [],
+  "keywords": [
+    "redux",
+    "redux-saga",
+    "react-router",
+    "state-management",
+    "api",
+    "route-management"
+  ],
   "author": "James Livolsi",
   "license": "MIT"
 }

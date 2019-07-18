@@ -4860,8 +4860,9 @@ jest@24.7.1:
     import-local "^2.0.0"
     jest-cli "^24.7.1"
 
-jetski@../lib:
-  version "1.0.0"
+jetski@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jetski/-/jetski-1.0.1.tgz#a2d7c492742bac0ba88b6db0f567180f45cade85"
   dependencies:
     connected-react-router "^6.5.2"
     react-redux "^7.1.0"

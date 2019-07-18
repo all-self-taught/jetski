@@ -60,12 +60,15 @@ const mapStateToProps = (state) => ({
   formData: selectForm(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-  onChange: (name, value) => dispatcher(dispatch).onChange(name)({ target: { value }}),
-  onSubmit: (history) => () => {
-    dispatcher(dispatch).onSubmit();
-    history.push('/');
+const mapDispatchToProps = dispatch => {
+  const customDispatch = dispatcher(dispatch);
+  return {
+    onChange: (name, value) => customDispatch.onChange(name)({ target: { value }}),
+    onSubmit: (history) => () => {
+      customDispatch.onSubmit();
+      history.push('/');
+    }
   }
-});
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewArticle));

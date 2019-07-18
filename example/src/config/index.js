@@ -11,6 +11,7 @@ export default {
       route: {
         path: '/',
         component: App,
+        exact: true
       },
       submit: {
         url: '/articles',

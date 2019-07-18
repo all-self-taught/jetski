@@ -19,7 +19,7 @@ export const NewsItem = ({ title, urlToImage, description, url }) => {
       <h1>{title}</h1>
       <img style={imgStyle} src={urlToImage} alt="" />
       <h2>{description}</h2>
-      <a href={url} target={url && url.includes('.com') ? '_blank' : ''}>READ MORE</a>
+      <a href={url} target={url && !url.includes('localhost') ? '_blank' : ''}>READ MORE</a>
     </div>
   </article>)
 }

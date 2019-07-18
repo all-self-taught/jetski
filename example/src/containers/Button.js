@@ -56,8 +56,6 @@ class Button extends React.Component {
 
 };
 
-console.log(dispatcher)
-
 export default connect(
   null,
   dispatcher,

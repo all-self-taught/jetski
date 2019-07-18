@@ -1,40 +1,23 @@
 import React from 'react';
 import Form from 'react-jsonschema-form';
 import SchemaField from 'react-jsonschema-form/lib/components/fields/SchemaField';
-import { connect, dispatcher, selectForm } from 'jetski';
+import { withRouter, connect, dispatcher, selectForm } from 'jetski';
 
-const CustomSchemaField = (props) => {
-
-    const customProps = {};
-
-    //Only process if we are dealing with a field, not the parent object
-    if (props.name) {
-
-        const formContext = props.registry.formContext;        
-        
-        //Store the original onChange event provided to the SchemaField
-        //as well as the name of the field
-        const { onChange, name } = props;
-
-        //Provide a new onChange event for the SchemaField
-        customProps.onChange = (formData) => {
-
-            //Call the custom handler provided in the formContext, if it exists,
-            //with the field name and new value
-            if (formContext && formContext.onFieldChange && 
-                typeof formContext.onFieldChange === 'function') {
-                formContext.onFieldChange(name, formData);
-            }
-
-            //Call the original onChange handler
-            onChange(formData);
-        };
-
-    }
-
-    return (
-        <SchemaField {...props} {...customProps} />
-    );
+const CustomSchemaField = ({ onChange, name, ...rest }) => {
+  const customProps = {};
+  if (name) {
+    const formContext = rest.registry.formContext;        
+    customProps.onChange = (formData) => {
+      if (formContext && formContext.onFieldChange && 
+        typeof formContext.onFieldChange === 'function') {
+        formContext.onFieldChange(name, formData);
+      }
+      onChange(formData);
+    };
+  }
+  return (
+    <SchemaField onChange={onChange} name={name} {...rest} {...customProps} />
+  );
 };
 
 const schema = {
@@ -55,7 +38,7 @@ const uiSchema = {
   }
 }
 
-const NewArticle = ({ onChange, onSubmit, formData }) => {
+const NewArticle = ({ onChange, onSubmit, formData, history }) => {
   const context = {
     onFieldChange: onChange
   }
@@ -67,7 +50,7 @@ const NewArticle = ({ onChange, onSubmit, formData }) => {
         uiSchema={uiSchema}
         formContext={context}
         formData={formData}
-        onSubmit={onSubmit}
+        onSubmit={onSubmit(history)}
       />
     </div>
   )
@@ -79,7 +62,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   onChange: (name, value) => dispatcher(dispatch).onChange(name)({ target: { value }}),
-  onSubmit: dispatcher(dispatch).onSubmit
+  onSubmit: (history) => () => {
+    dispatcher(dispatch).onSubmit();
+    history.push('/');
+  }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewArticle);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewArticle));

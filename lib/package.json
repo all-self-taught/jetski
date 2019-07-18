@@ -23,7 +23,7 @@
     "@babel/preset-react": "^7.0.0"
   },
   "scripts": {
-    "build": "babel ./ --out-dir build --presets @babel/preset-react --ignore \"node_modules\""
+    "build": "babel ./ --out-dir build --presets @babel/preset-react --ignore \"node_modules\",\"build\",\"**/*.test.js\""
   },
   "repository": {
     "type": "git",
